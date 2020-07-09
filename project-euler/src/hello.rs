@@ -35,10 +35,9 @@ pub fn problem_003() {
         }
     }
     fn is_prime(input: i64) -> bool {
+        //trial division algorithm with 6k+1 optimization, converted pseudocode from https://en.wikipedia.org/wiki/Primality_test
         match input <= 3 {
-            true => {
-                input > 1
-            }
+            true => input > 1,
             false => match input % 2 == 0 || input % 3 == 0 {
                 true => false,
                 false => {
@@ -58,13 +57,47 @@ pub fn problem_003() {
             },
         }
     }
-    /*let mut factors: Vec<i32> = vec![];
-    let input = 600851475143f64;
-    let rangeto: i64 = input.sqrt() as i64;
-    for x in 1i64..input as i64 {
-        //rangeto {
-        if (is_factor(input as i64, x as i64)) {
-            if (is_prime(x as i64)) {}
+    fn get_factors(input: i64) -> Vec<i32> {
+        let mut a: Vec<i32> = vec![];
+        let mut f = 2;
+        let mut input = input;
+        loop {
+            if input <= 1 {
+                break;
+            };
+            if input % f == 0 {
+                a.push(f as i32);
+                input /= f;
+            } else {
+                f += 1;
+            }
         }
-    }*/
+        a
+    }
+    let input = 600851475143f64 as i64;
+    let factors = get_factors(input);
+    //println!("factors of 9009: {:?}",get_factors(9009));
+    println!("largest factors: {:?}", factors.iter().max());
+}
+
+#[allow(dead_code)]
+pub fn problem_004() {
+    fn is_palindrome(n1: i32) -> bool {
+        let forward: Vec<char> = n1.to_string().chars().collect();
+        let mut backward = forward.clone();
+        backward.reverse();
+        match (forward == backward) {
+            true => true,
+            false => false,
+        }
+    }
+    let mut palindromes: Vec<i32> = vec![];
+    for n1 in (100..1000).rev() {
+        for n2 in (100..1000).rev() {
+            if is_palindrome(n1 * n2) {
+                palindromes.push(n1 * n2);
+            }
+        }
+    }
+    println!("largest is: {}", palindromes.iter().max().unwrap());
 }

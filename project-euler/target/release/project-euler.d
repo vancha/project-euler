@@ -1,0 +1,1 @@
+/home/vancha/Documents/rust/project-euler/project-euler/target/release/project-euler: /home/vancha/Documents/rust/project-euler/project-euler/src/hello.rs /home/vancha/Documents/rust/project-euler/project-euler/src/main.rs

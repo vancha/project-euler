@@ -25,6 +25,30 @@ pub fn problem_002() {
     println!("sum: {:?}", sum.iter().sum::<i32>());
 }
 
+fn is_prime(input: i64) -> bool {
+    //trial division algorithm with 6k+1 optimization, converted pseudocode from https://en.wikipedia.org/wiki/Primality_test
+    match input <= 3 {
+        true => input > 1,
+        false => match input % 2 == 0 || input % 3 == 0 {
+            true => false,
+            false => {
+                let mut i = 5;
+                loop {
+                    if i * i > input {
+                        break true;
+                    }
+
+                    if !(input % i == 0 || input % (i + 2) == 0) {
+                        i = i + 6;
+                        continue;
+                    };
+                    break false;
+                }
+            }
+        },
+    }
+}
+
 #[allow(dead_code)]
 pub fn problem_003() {
     fn is_factor(number: i64, potentialfactor: i64) -> bool {
@@ -32,29 +56,6 @@ pub fn problem_003() {
             true
         } else {
             false
-        }
-    }
-    fn is_prime(input: i64) -> bool {
-        //trial division algorithm with 6k+1 optimization, converted pseudocode from https://en.wikipedia.org/wiki/Primality_test
-        match input <= 3 {
-            true => input > 1,
-            false => match input % 2 == 0 || input % 3 == 0 {
-                true => false,
-                false => {
-                    let mut i = 5;
-                    loop {
-                        if i * i > input {
-                            break true;
-                        }
-
-                        if !(input % i == 0 || input % (i + 2) == 0) {
-                            i = i + 6;
-                            continue;
-                        };
-                        break false;
-                    }
-                }
-            },
         }
     }
     fn get_factors(input: i64) -> Vec<i32> {
@@ -76,7 +77,6 @@ pub fn problem_003() {
     }
     let input = 600851475143f64 as i64;
     let factors = get_factors(input);
-    //println!("factors of 9009: {:?}",get_factors(9009));
     println!("largest factors: {:?}", factors.iter().max());
 }
 
@@ -108,29 +108,49 @@ pub fn problem_005() {
         let numbers_to_divide_by: Vec<i32> = (1..20).collect();
         for x in numbers_to_divide_by {
             if number % x != 0 {
-                 return false;
+                return false;
             }
         }
         true
     }
     for x in 1..900000000 {
-    if is_evenly_divisible(x) {
-        println!("{} works",x);
-        break;
-    }
+        if is_evenly_divisible(x) {
+            println!("{} works", x);
+            break;
+        }
     }
 }
-
 
 #[allow(dead_code)]
 pub fn problem_006() {
-    let mut sumofsquares:i32 = 0;
-    let mut squareofsums:i32 = 0;
+    let mut sumofsquares: i32 = 0;
+    let mut squareofsums: i32 = 0;
     for x in 1..101 {
-        sumofsquares +=  (x as i32).pow(2);
+        sumofsquares += (x as i32).pow(2);
         squareofsums += x;
     }
     squareofsums = squareofsums.pow(2);
-    println!("{},{},{}",sumofsquares,squareofsums,(squareofsums - sumofsquares).abs());
+    println!(
+        "{},{},{}",
+        sumofsquares,
+        squareofsums,
+        (squareofsums - sumofsquares).abs()
+    );
 }
 
+#[allow(dead_code)]
+pub fn problem_007() {
+    let mut primes: Vec<i64> = vec![];
+    let mut start = 0;
+    while primes.len() != 10001 {
+        for x in start..90000000000 {
+            if is_prime(x) {
+                println!("{} is prime, primes size = {}", x, primes.len());
+                primes.push(x as i64);
+                start = x + 1;
+                break;
+            }
+        }
+    }
+    println!("Nr of nr's: {:?}", primes);
+}

@@ -1,6 +1,6 @@
 mod hello;
 
 fn main() {
-    hello::problem_006();
+    hello::problem_007();
 
 }

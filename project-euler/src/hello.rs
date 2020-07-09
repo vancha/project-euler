@@ -86,7 +86,7 @@ pub fn problem_004() {
         let forward: Vec<char> = n1.to_string().chars().collect();
         let mut backward = forward.clone();
         backward.reverse();
-        match (forward == backward) {
+        match forward == backward {
             true => true,
             false => false,
         }
@@ -100,4 +100,23 @@ pub fn problem_004() {
         }
     }
     println!("largest is: {}", palindromes.iter().max().unwrap());
+}
+
+#[allow(dead_code)]
+pub fn problem_005() {
+    fn is_evenly_divisible(number: i32) -> bool {
+        let numbers_to_divide_by: Vec<i32> = (1..20).collect();
+        for x in numbers_to_divide_by {
+            if number % x != 0 {
+                //println!("{} % {} = {}",number,x,x % number);
+                return false;
+            }
+        }
+        true
+    }
+    for x in 1..900000000 {
+    if is_evenly_divisible(x) {
+        println!("{} works",x);
+    }
+    }
 }

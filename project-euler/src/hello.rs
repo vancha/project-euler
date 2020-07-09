@@ -144,13 +144,12 @@ pub fn problem_007() {
     let mut start = 0;
     while primes.len() != 10001 {
         for x in start..90000000000 {
-            if is_prime(x) {
-                println!("{} is prime, primes size = {}", x, primes.len());
+            if is_prime(x) { 
                 primes.push(x as i64);
                 start = x + 1;
                 break;
             }
         }
     }
-    println!("Nr of nr's: {:?}", primes);
+    println!("10001st prime: {:?}", primes.last());
 }

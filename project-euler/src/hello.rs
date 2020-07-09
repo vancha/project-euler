@@ -108,8 +108,7 @@ pub fn problem_005() {
         let numbers_to_divide_by: Vec<i32> = (1..20).collect();
         for x in numbers_to_divide_by {
             if number % x != 0 {
-                //println!("{} % {} = {}",number,x,x % number);
-                return false;
+                 return false;
             }
         }
         true
@@ -117,6 +116,21 @@ pub fn problem_005() {
     for x in 1..900000000 {
     if is_evenly_divisible(x) {
         println!("{} works",x);
+        break;
     }
     }
 }
+
+
+#[allow(dead_code)]
+pub fn problem_006() {
+    let mut sumofsquares:i32 = 0;
+    let mut squareofsums:i32 = 0;
+    for x in 1..101 {
+        sumofsquares +=  (x as i32).pow(2);
+        squareofsums += x;
+    }
+    squareofsums = squareofsums.pow(2);
+    println!("{},{},{}",sumofsquares,squareofsums,(squareofsums - sumofsquares).abs());
+}
+

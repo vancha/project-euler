@@ -264,7 +264,23 @@ For example, 32 + 42 = 9 + 16 = 25 = 52.
 There exists exactly one Pythagorean triplet for which a + b + c = 1000.
 Find the product abc.
 */
+
+//possible algorithm: check if given set of numbers is pythagorean triplet.
 #[allow(dead_code)]
 pub fn problem_009() {
+    for a in 0..1000 {
+        for b in 0..1000 {
+            for c in 0..1000 {
+                if a < b && b < c {
+                if (a as i32).pow(2) + (b as i32).pow(2) == (c as i32).pow(2){
+                    if(a + b + c == 1000) {
+                        println!(" seem to have gotten the answer: {} + {} + {} == 1000, product = {}",a,b,c,(a * b * c));
+                    }
+                    //println!("got it: {}^2 + {}^2 =  {}^2", a, b,c);
+                }
+            }
+            }
+        }
+    }
 
 }

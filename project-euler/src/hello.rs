@@ -635,29 +635,21 @@ pub fn problem_013() {
 "72107838435069186155435662884062257473692284509516".into(),
 "20849603980134001723930671666823555245252804609722".into(),
 "53503534226472524250874054075591789781264330331690".into()];
-    let uu = input.clone();
-    use  bigint_base10::BigInteger;
-    let mut sum = BigInteger::new("0");   
-    for x in uu {
-        let my_int = BigInteger::new(&x);
-        sum = sum +  &my_int;
-    }
-    println!("sum: {:?}",sum);
     
     //answer to append digits to when calculating
     let mut answer:Vec<i32> = vec![];
     //carry is outside the loop, will be calculated and cleared every iteration
     let mut carry = 0;
-    let xu = input.clone();
-    for x in 0..xu[0].len() {
+    //let xu = input.clone();
+    for digit_to_process in 0..input[0].len() {
         //creates a temporary sum, to put the sum of every row of digits in
         let mut subsum: u128 = 0;
         //loops over all the digits in the numbers vertically
-        for y in 0..xu.len() {
+        for row_in_input in 0..input.len() {
             //gets the digit as a char, turns it into a u128
-            let ux = (xu[y].chars().rev().collect::<String>().get(x..x+1)).unwrap().parse::<u128>().unwrap();
+            let vertical_digit = (input[row_in_input].chars().rev().collect::<String>().get(digit_to_process..digit_to_process+1)).unwrap().parse::<u128>().unwrap();
             //ads this digit to the temporary sum
-            subsum += ux;  
+            subsum += vertical_digit;  
         }
         //checks if there was a number carried over from the previous iteration
         if carry != 0 {
@@ -672,11 +664,14 @@ pub fn problem_013() {
         //we have the digit to write down, insert it into the answer
         answer.insert(0,digit_to_append);
         //finally, we set the temporary sum back to 0 for the next iteration
-        subsum = 0;
-   
+        subsum = 0; 
+    }
+    //is there anything left in the carry? prepend it to the anser
+    for x in carry.to_string().chars().rev() {
+        answer.insert(0,x.to_digit(10).unwrap() as i32);       
     }
     
-    println!("result: {:?}{:?} left in carry",carry,answer);
+    println!("result: {:?}",answer);
 
 
     }

@@ -711,28 +711,28 @@ pub fn problem_013() {
     pub fn problem_015() {
         //apparently this sequence looks like "binomial cofficient", (6,20,70,252,924 etc)
         //try to get a function that generates these and check what you should return
-        static width:u32 =7;
+        fn iterative() {static width:u32 =20;
         static height:u32 = width;//it's a grid, it's supposed to be square
         static nr_of_bits_for_all_moves:u32 = (width+height);
-        
-        fn balanced_nr_of_bits(number: u64) -> (bool,i32) {
-            match number.count_ones() {
-                7 => { 
-                    (true,1)
-                }
-                _ => { 
-                    (false,0)
-                }
-            }
-        }
 
         let mut goodmoves =0; 
         for x in 0..(2u64.pow((nr_of_bits_for_all_moves))){
             goodmoves += (x.count_ones() == width) as u32;
-            if x % 1000000000 == 0 {
-                println!("{}", x as f64 / 2f64.powf(nr_of_bits_for_all_moves as f64) * 10f64);
-            }
-            }
+         }
         println!("valid moves : {}",goodmoves); 
+        
+        }
+        //find another datatype large enough to fit fac(2*20);
+        fn fac(n:u128) -> u128 {
+            match n < 2 {
+                true => {  1  },
+                false => { n*fac(n-1)  }
+            }
+        }
+        fn optimized_solution(n: u128) -> u128{
+             fac(2*n) / (fac(n)).pow(2)
+        } 
+        //iterative();
+        //println!("{}",optimized_solution(20));
     }
 

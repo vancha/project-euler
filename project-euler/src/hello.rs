@@ -672,6 +672,55 @@ pub fn problem_013() {
     }
     
     println!("result: {:?}",answer);
-
-
     }
+
+    pub fn problem_014() {
+        fn nr_of_steps(starting_number: i64) -> i64 {
+        let mut starting_number = starting_number; 
+        let mut steps = 0;
+        loop {
+            if starting_number == 1 {
+                break;
+            }
+        match starting_number % 2 {
+            0 => {
+                starting_number /= 2;
+                steps += 1;
+            }
+            _ => {
+                starting_number = (starting_number * 3) + 1;
+                steps += 1;
+            }
+        }
+    
+        }
+        steps
+        }
+        let mut max = 0;
+        let mut val = 0;
+        for x in 1..1000000 {
+            let steps = nr_of_steps(x);
+             if steps > max {
+            max = steps;
+            val = x;
+        }
+        }
+        println!("{} took {}steps", val,max);
+    }
+
+    pub fn problem_015() {
+        fn balanced_nr_of_bits(number: u64) -> bool {
+            number.count_ones() == number.count_zeros()
+        }
+        let ff: u64 = 0b1111111111111111111111111111111111111111;
+        let mut goodmoves =0;
+        
+        for x in 0..ff{
+            if balanced_nr_of_bits(x) {
+                goodmoves += 1;
+            }
+        }
+        println!("valid moves : {}",goodmoves);
+        //(0..ff).map(|x| balanced_nr_of_bits(x)).collect::<Vec<bool>>();
+    }
+

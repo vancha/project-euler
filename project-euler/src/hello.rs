@@ -709,13 +709,15 @@ pub fn problem_013() {
     }
 
     pub fn problem_015() {
-        static width:u32 = 20;
+        //apparently this sequence looks like "binomial cofficient", (6,20,70,252,924 etc)
+        //try to get a function that generates these and check what you should return
+        static width:u32 =7;
         static height:u32 = width;//it's a grid, it's supposed to be square
         static nr_of_bits_for_all_moves:u32 = (width+height);
         
         fn balanced_nr_of_bits(number: u64) -> (bool,i32) {
             match number.count_ones() {
-                20 => { 
+                7 => { 
                     (true,1)
                 }
                 _ => { 
@@ -726,10 +728,7 @@ pub fn problem_013() {
 
         let mut goodmoves =0; 
         for x in 0..(2u64.pow((nr_of_bits_for_all_moves))){
-            //let (balanced,value) = balanced_nr_of_bits(x);
-            if x.count_ones() == width  {//balanced {
-                goodmoves += 1;
-            }
+            goodmoves += (x.count_ones() == width) as u32;
             if x % 1000000000 == 0 {
                 println!("{}", x as f64 / 2f64.powf(nr_of_bits_for_all_moves as f64) * 10f64);
             }

@@ -709,45 +709,31 @@ pub fn problem_013() {
     }
 
     pub fn problem_015() {
-        static nr_of_bits_for_all_moves:u32 = 40;
-       
-        /* for 4 bits: 0011
-         *  the second part can be mirrored if it's number of 1 bits are equal to half of half of
-         *  the total amount of bits (4 bits/2 = 2, 2/2 = 1);
-         *  01 == 1001 && 10 == 0110
-         *  if it contains half of the total amount of bits (11), it's a valid path, and it has a
-         *  mirrored version: 11 == 0011 && 11 == 1100
-         * */
+        static width:u32 = 20;
+        static height:u32 = width;//it's a grid, it's supposed to be square
+        static nr_of_bits_for_all_moves:u32 = (width+height);
+        
         fn balanced_nr_of_bits(number: u64) -> (bool,i32) {
-            let ones = number.count_ones();
-            let half_the_bits = nr_of_bits_for_all_moves / 2; 
-            let half_of_half_the_bits = half_the_bits / 2;
-            //println!("half of half is {}",half_of_half_the_bits);
-            let counts_as = 0;
-            match ones {
-                half_the_bits => {
-                    //println!("{:#020b} can be mirrored fully",number);
-                    (true,2)
-                }
-                half_of_half_the_bits => {
-                    println!("{:#020b} can be mirrored per half",number);
+            match number.count_ones() {
+                20 => { 
                     (true,1)
                 }
-                _ => {
+                _ => { 
                     (false,0)
                 }
             }
         }
-        let mut goodmoves =0;
-        
-        for x in 1..(2u64.pow(nr_of_bits_for_all_moves / 2)){
-            let (balanced,value) = balanced_nr_of_bits(x);
-            if balanced {
-                //println!("{:#040b} is valid",x);
-                goodmoves += value;
+
+        let mut goodmoves =0; 
+        for x in 0..(2u64.pow((nr_of_bits_for_all_moves))){
+            //let (balanced,value) = balanced_nr_of_bits(x);
+            if x.count_ones() == width  {//balanced {
+                goodmoves += 1;
             }
-        }
-        println!("valid moves : {}",goodmoves);
-       
+            if x % 1000000000 == 0 {
+                println!("{}", x as f64 / 2f64.powf(nr_of_bits_for_all_moves as f64) * 10f64);
+            }
+            }
+        println!("valid moves : {}",goodmoves); 
     }
 

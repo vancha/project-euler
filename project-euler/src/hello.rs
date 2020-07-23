@@ -711,13 +711,14 @@ pub fn problem_013() {
     pub fn problem_015() {
         //apparently this sequence looks like "binomial cofficient", (6,20,70,252,924 etc)
         //try to get a function that generates these and check what you should return
-        fn iterative() {static width:u32 =20;
-        static height:u32 = width;//it's a grid, it's supposed to be square
-        static nr_of_bits_for_all_moves:u32 = (width+height);
+        fn iterative() {
+        static WIDTH:u32 =20;
+        static HEIGHT:u32 = WIDTH;//it's a grid, it's supposed to be square
+        static NR_OF_BITS_FOR_ALL_MOVES:u32 = (WIDTH+HEIGHT);
 
         let mut goodmoves =0; 
-        for x in 0..(2u64.pow((nr_of_bits_for_all_moves))){
-            goodmoves += (x.count_ones() == width) as u32;
+        for x in 0..(2u64.pow((NR_OF_BITS_FOR_ALL_MOVES))){
+            goodmoves += (x.count_ones() == WIDTH) as u32;
          }
         println!("valid moves : {}",goodmoves); 
         
@@ -734,5 +735,10 @@ pub fn problem_013() {
         } 
         //iterative();
         //println!("{}",optimized_solution(20));
+    }
+
+    pub fn problem_016() {
+         use num_bigint::BigUint; 
+        println!("{}",BigUint::new(vec![2]).pow(1000).to_string().chars().map(|x| x.to_digit(10)).fold(0,|sum,value| sum + value.unwrap()));
     }
 

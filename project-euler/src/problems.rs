@@ -772,29 +772,99 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
 #[allow(dead_code)]
     pub fn problem_017(){
         fn num_to_word(num:i32){
-            let words = vec!["one","two","three","four","five","six","seven","eight","nine"];
-            let tens = vec!["ten","twenty","thirty","fourty","fifty"];
-            let power_of_ten = vec!["hundred","thousand"];
-           for (x,y) in num.to_string().chars().enumerate() {
-                let pos = num.to_string().len() - x;
-                match pos {
+            let words = vec!["one","two","three","four","five","six","seven","eight","nine","ten",
+            "eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+            let tens = vec!["ten","twenty","thirty","fourty","fifty","sixty","seventy","eighty","ninety"];
+            let mut and = false;
+            for (x,y) in num.to_string().chars().enumerate() {
+                let y = (y.to_string()).parse::<usize>().unwrap();
+                match num.to_string().len() - x {
                     4 => {
-                        print!("{} thousand, ",words[num as usize/ 1000 as usize -1]);
+                        //print!("{} thousand, ",words[num as usize/ 1000 as usize -1]);
+                        print!("{} thousand ",words[y-1]);
+                        and = true;
                     },
                     3 => {
-                        print!("{} hundred",words[(num - (num / 1000) * 1000) as usize / 100 as usize -1]);
+                        if y != 0 { 
+                        print!("{} hundred ",words[(num - (num / 1000) * 1000) as usize / 100 as usize -1]);
+                        and = true;
+                        }
                     }
                     2 => {
-                        print!("");
+                        if y != 0 {
+                            if and {
+                                print!(" and ");
+                            }
+                            if y < 20 {
+                                print!(" {} ",tens[y -1]);
+                                let next = 
+                                break;
+                            } else {
+                                print!(" {} ",tens[y -1]);
+                            }
+                        }
                     }
                     1 => {
-                        print!("\n");
+                        if y != 0 {
+                        print!("{}",words[y - 1]);
+                        }
                     }
-                    _ => {
-                    }
+                    _ => {}
                 }
             }
         }
-        num_to_word(2300);
+
+        for x in 0..30 {
+            num_to_word(x);
+            println!("");
+        }
+        /*num_to_word(1000);
+        println!("");
+        num_to_word(342);
+        println!("");
+        num_to_word(543);
+        println!("");
+        num_to_word(8);
+        println!("");
+        num_to_word(1234);*/
     }
 
+/*fn maximum_path_sum(triangle:&Vec<Vec<i32>>)->Vec<i32>{
+    let last_row = &triangle[triangle.len()-1];
+    let second_last_row = &triangle[triangle.len()-2];
+    second_last_row.iter().enumerate().map(|(x,y)|(x,y)).map(|(x,y)| std::cmp::max(last_row[x] + y,last_row[x+1] + y) as i32).collect::<Vec<i32>>()
+}*/
+
+fn new_last_row(triangle:&Vec<Vec<i32>>)->Vec<i32>{
+    let last_row = &triangle[triangle.len()-1];
+    let second_last_row = &triangle[triangle.len()-2];
+    second_last_row.iter().enumerate().map(|(x,y)|(x,y)).map(|(x,y)| std::cmp::max(last_row[x] + y,last_row[x+1] + y) as i32).collect::<Vec<i32>>()
+}
+
+
+pub fn problem_018() {
+//algorithm:
+//from bottom to top, take the last two rows
+//get the maximum path a lá : https://lucidmanager.org/data-science/project-euler-18/
+
+let triangle = 
+    vec![
+    vec![3],
+    vec![7,4],
+    vec![2,4,6],
+    vec![8,5,9,3]
+    ];
+let mut new_row = new_last_row(&triangle);
+let mut triangle2 = triangle.clone();
+println!("size:{}",triangle2.len());
+triangle2.remove(triangle2.len()-1);
+triangle2.remove(triangle2.len()-1);
+triangle2.append(&mut vec![new_row]);
+println!("size:{}",triangle2.len());
+new_row = new_last_row(&triangle2);
+triangle2.remove(triangle2.len()-1);
+triangle2.remove(triangle2.len()-1);
+triangle2.append(&mut vec![new_row]);
+println!("size:{}",triangle2.len());
+println!("{:?}",new_last_row(&triangle2));
+}

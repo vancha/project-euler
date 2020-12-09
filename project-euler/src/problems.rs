@@ -792,21 +792,24 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
                     }
                     2 => {
                         if y != 0 {
+                            println!("num:{}",num);
                             if and {
-                                print!(" and ");
+                                print!("and ");
                             }
-                            if y < 20 {
-                                print!(" {} ",tens[y -1]);
-                                let next = 
+                            if num < 20 {
+                                print!("{}",words[(num -1)as usize]); 
                                 break;
                             } else {
-                                print!(" {} ",tens[y -1]);
+                                print!("nuuuuuu");
+                                print!("{} ",tens[y -1]);
                             }
                         }
                     }
                     1 => {
                         if y != 0 {
-                        print!("{}",words[y - 1]);
+                            if and {
+                            }
+                            print!("{}",words[y - 1]);
                         }
                     }
                     _ => {}
@@ -814,7 +817,7 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
             }
         }
 
-        for x in 0..30 {
+        for x in 0..1902 {
             num_to_word(x);
             println!("");
         }
@@ -864,3 +867,58 @@ pub fn problem_018() {
     }
     print!("{:?}",new_last_row(&triangle));
 }
+
+pub fn problem_019(){
+    struct Month {
+        is: std::string::String,
+    }
+    struct Year {
+        is: i32,
+        months: Vec<Month>,
+    }
+    impl Year {
+        fn new()->Self {
+            Year {is:0,months:vec![]}
+        }
+    }
+    let months          = vec!["januari",  "februari", "march",   "april",    "may",  "june",    "july", "august",   "september",   "october",  "november", "december"];
+    let number_of_days  = vec![31,         28,         31,        30,         31,     30,        31,     31,         30,            31,         30,         31];
+    let days            = vec!["monday","tuesday","wednesday","thursday","friday","saturday","sunday"];
+    let years = (1900..2001).collect::<Vec<i32>>();
+    //let timescale = years.iter().map(|x| (x,months)).map(|(x,y)|(x,y)).collect::<Vec<(&i32,Vec<&str>)>>();
+    
+    for yeartmp in years {
+        let month = Month { is:std::string::String::from("aa") };
+        for m in &months {
+            println!("{}",m);
+        }
+        let y = Year{is:yeartmp,months:vec![month]};
+           //if year % 4 == 0 && year % 100 == 0
+    }
+    //println!("{:?}",timescale);
+    //31 days: januari, march,may,july,august,october,december,
+    //30 days: september, april, june, november,
+    //28 days: februari (not on leap year)
+}
+
+//why this so hard..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

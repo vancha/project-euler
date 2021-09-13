@@ -903,8 +903,95 @@ pub fn problem_019(){
 
 //why this so hard..
 
+pub fn problem_025(){
+    use num_bigint::BigUint;
+    use num_bigint::ToBigInt;
+    for n in 0.. {
+        let mut fibs: Vec<BigUint> = vec![0u128.into(), 1u128.into()];
+        for i in 2..n + 1 { 
+            fibs.push(fibs[fibs.len() - 1].clone() + fibs[fibs.len() - 2].clone());
+        }
+        if fibs[fibs.len() - 1].to_string().len() >= 1000 {
+            println!("Gotem: {}", n); 
+            break;
+        }
+    }   
 
+}
+//found diagonals here: https://math.stackexchange.com/questions/1347560/quadratic-polynomials-describe-the-diagonal-lines-in-the-ulam-spiral
+//square size can be controlled by changing n
+//page lists diagonal value calculation to be as follows: 
+//bottom right :4*n^2-2*n+1
+//top right :4*n^2-4*n+1
+//top left :4*n^2+2*n+1
+//bottom left : 4*n^2+1 
+pub fn problem_028(){
+    let n = 1001;
+    let  nr_diagonals= ((n / 2) as f64).floor();
+    let bottomright:Vec<i32> = (1..( nr_diagonals as i32)+1)
+        .map(|n| 4 * n.pow(2)-2*n+1)
+        .collect();
+    let bottomleft:Vec<i32> = (1..(nr_diagonals as i32)+1)
+        .map(|n| 4 * n.pow(2)+1)
+        .collect();
+    let topleft:Vec<i32> = (1..(nr_diagonals as i32)+1)
+        .map(|n| 4 * n.pow(2)+2*n+1)
+        .collect();
+    let topright:Vec<i32> = (1..(nr_diagonals as i32)+2)//this makes no sense.. but it works?
+        .map(|n| (2*n-1).pow(2))
+        .collect();
+    let all_diagonals_summed: i32 = vec![bottomright, bottomleft,topleft,topright].iter().flatten().sum(); 
+    
+    println!("nr: {:?}",all_diagonals_summed);
 
+}
+pub fn problem_029(){
+    use num_bigint::BigUint;
+    use num_bigint::ToBigInt;
+    let mut vals = vec![];
+    for a in 2u128..101 {
+        for b in 2u32..101 {
+            let an:BigUint = a.into();
+            vals.push(an.pow(b));
+        }
+    }
+    vals.sort();
+    vals.dedup();
+    println!("{:?}",vals.len());
+
+}
+pub fn problem_031() {
+       let mut valid = 0;
+    for o in 0..201 {
+        for t in 0..(200/2)+1 {
+            for f in 0..(200/5)+1 {
+                for ts in 0..(200/10)+1 {
+                    for tw in 0..(200/20)+1 {
+                        for fy in 0..(200/50)+1 {
+                            for h in 0..(200/100)+1 {
+                                for th in 0..(200/200)+1 {
+                                    if (o
+                                        + (t * 2)
+                                        + (f * 5)
+                                        + (ts * 10)
+                                        + (tw * 20)
+                                        + (fy * 50)
+                                        + (h * 100)
+                                        + (th * 200))
+                                        == 200
+                                    {
+                                        valid += 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    println!("{} solutions", valid); 
+}
 
 
 

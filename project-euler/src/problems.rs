@@ -901,6 +901,26 @@ pub fn problem_019(){
     //28 days: februari (not on leap year)
 }
 
+fn is_amicable(number: i32) -> bool {
+    //potential performance increase: if a number is amicable, remove it from the list of numbers
+    //to calculate (for example, if is_amicable(220) == 285, remove 285 from the list, so that
+    //is_amicable(285) will no longer be calculated. instead of adding both numbers to a list,
+    //maybe even just 504 will have to be added (220 + 284)
+    if sum_of_proper_divisors(number) != number && sum_of_proper_divisors(sum_of_proper_divisors(number)) == number
+}
+
+fn sum_of_proper_divisors(input: i32) -> i32 {
+        (1..input)
+           .filter_map(|n| match input % n {
+               0 => Some(n),
+               _ => None,
+           })
+          .sum()
+}
+
+pub fn problem_021() {
+    println!("{}",(1..(10001 / 2)).filter(|&c| is_amicable(c)).sum::<i32>());
+}
 //why this so hard..
 
 pub fn problem_025(){
@@ -992,7 +1012,6 @@ pub fn problem_031() {
     }
     println!("{} solutions", valid); 
 }
-
 
 
 

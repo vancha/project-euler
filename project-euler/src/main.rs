@@ -9,6 +9,6 @@ mod problems;
 
 ///used only to select a single problem from the problems module
 fn main() {
-    problems::problem_031();
+    problems::problem_021();
 
 }
